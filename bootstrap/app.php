@@ -41,6 +41,14 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+
+
+// use Google\Cloud\Firestore\FirestoreClient;
+// $firestore = new FirestoreClient();
+
+// Dump($firestore);
+
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

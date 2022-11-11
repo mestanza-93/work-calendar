@@ -8,6 +8,10 @@
         "php": "^7.3|^8.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
+        "google/cloud": "^0.193.0",
+        "google/cloud-firestore": "^1.26",
+        "google/protobuf": "^3.21",
+        "grpc/grpc": "^1.42",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5"
