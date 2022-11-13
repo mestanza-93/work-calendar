@@ -1,11 +1,11 @@
 {
-    "name": "laravel/laravel",
+    "name": "work/calendar",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Work calendar",
+    "keywords": ["work", "calendar", "employees", "company"],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.4|8.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "google/cloud": "^0.193.0",
@@ -21,7 +21,6 @@
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.16",
         "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3.3"
     },
     "autoload": {
