@@ -1,8 +1,10 @@
 <?php
 
-phpinfo();
+echo extension_loaded('grpc') ? 'yes' : 'no';
 
-use Google\Cloud\Storage\StorageClient;
+// phpinfo();
+
+// use Google\Cloud\Storage\StorageClient;
 
 // $storage = new StorageClient([
 //     'keyFilePath' => config('database.connections.firestore.credentials')
