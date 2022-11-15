@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\ServiceProvider;
 use Google\Cloud\Storage\StorageClient;
 use Google\Cloud\Firestore\FirestoreClient;
 
@@ -27,22 +28,25 @@ class DatabaseServiceProvider extends ServiceProvider
      * @return void
      */
 
+    public function boot()
+    {
+        $this->initialize();
+    }
+
+
+    /**
+     * Initializate project connection
+     * 
+     * @return void 
+     */
     public function initialize()
     {
-        
-    }
-
-    public function connect()
-    {
+        Dump('Hola');
         $storage = new StorageClient([
-            'keyFilePath' => config('database.connections.firestore.credentials')
+            'keyFilePath' => env('GOOGLE_APPLICATION_CREDENTIALS')
+            // 'keyFilePath' => config('database.connections.firestore.credentials')
         ]);
-
-        $db = new FirestoreClient();
-
-        return $db;
+        Dump($storage);
     }
-
-
 
 }

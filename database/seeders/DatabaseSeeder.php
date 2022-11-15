@@ -14,8 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $storage = new StorageClient([
-            'keyFilePath' => config('database.connections.firestore.credentials')
-        ]);
+
     }
 }
