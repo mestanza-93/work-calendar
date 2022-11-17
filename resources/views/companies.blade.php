@@ -2,9 +2,14 @@
 
 // phpinfo();
 
-use Google\Cloud\Firestore\FirestoreClient;
-$db = new FirestoreClient();
 
-Dump($db);
+/**
+ * @todo Corregir dump-autoload para que coja QueryBuilder
+ */
 
-?>
+use Database\Helpers\QueryBuilder;
+
+$queryBuilder = new QueryBuilder();
+
+$queryBuilder->setTable('companies');
+$queryBuilder->getAll();

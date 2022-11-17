@@ -1,8 +1,10 @@
 <?php
 
-echo extension_loaded('grpc') ? 'yes' : 'no';
-
+use App\Providers\DatabaseServiceProvider;
 // phpinfo();
+
+
+// $db = DatabaseServiceProvider::getConnection();
 
 // use Google\Cloud\Storage\StorageClient;
 

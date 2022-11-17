@@ -36,7 +36,7 @@ return [
     'connections' => [
         'firestore' => [
             'project' => env('GCLOUD_PROJECT'),
-            'credentials' => env('GOOGLE_APPLICATION_CREDENTIALS')
+            'credentials' => base_path() . "/gcloud/credentials.json"
         ]
     ],
 

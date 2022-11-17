@@ -42,13 +42,6 @@ $app->singleton(
 );
 
 
-
-// use Google\Cloud\Firestore\FirestoreClient;
-// $firestore = new FirestoreClient();
-
-// Dump($firestore);
-
-
 /*
 |--------------------------------------------------------------------------
 | Return The Application

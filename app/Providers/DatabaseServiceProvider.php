@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Exception;
 use Illuminate\Support\ServiceProvider;
 use Google\Cloud\Storage\StorageClient;
 use Google\Cloud\Firestore\FirestoreClient;
@@ -9,25 +10,10 @@ use Google\Cloud\Firestore\FirestoreClient;
 class DatabaseServiceProvider extends ServiceProvider
 {
     /**
-     * The database project for the application.
-     * 
-     * @var string|null
-     */
-    // private $projectId = config('database.connections.firestore.project');
-
-    /**
-     * The database credentials for the application.
-     * 
-     * @var string|null
-     */
-    // private $credentials = config('database.connections.firestore.credentials');
-
-    /**
      * Define your route model bindings, pattern filters, etc.
      *
      * @return void
      */
-
     public function boot()
     {
         $this->initialize();
@@ -35,18 +21,33 @@ class DatabaseServiceProvider extends ServiceProvider
 
 
     /**
-     * Initializate project connection
+     * Initialize Firestore project
      * 
      * @return void 
      */
     public function initialize()
     {
-        Dump('Hola');
-        $storage = new StorageClient([
-            'keyFilePath' => env('GOOGLE_APPLICATION_CREDENTIALS')
-            // 'keyFilePath' => config('database.connections.firestore.credentials')
+        new StorageClient([
+            'keyFilePath' => config('database.connections.firestore.credentials')
         ]);
-        Dump($storage);
+    }
+
+    /**
+     * Get database connection
+     * 
+     * @return Firestore $db
+     */
+    public static function initConnection ()
+    {
+        $db = null;
+
+        try {
+            $db = new FirestoreClient();
+        } catch (Exception $e) {
+            throw $e;
+        }
+
+        return $db;
     }
 
 }
