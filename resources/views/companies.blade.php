@@ -12,4 +12,6 @@ use Database\Helpers\QueryBuilder;
 $queryBuilder = new QueryBuilder();
 
 $queryBuilder->setTable('companies');
-$queryBuilder->getAll();
+$companies = $queryBuilder->getAll();
+
+Dump($companies);
