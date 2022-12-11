@@ -1,10 +1,16 @@
-<?php
-
-use Database\Helpers\QueryBuilder;
-
-$queryBuilder = new QueryBuilder();
-
-$queryBuilder->setTable('companies');
-$companies = $queryBuilder->getAll();
-
-Dump($companies);
+@extends('layouts.navbar')
+  
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Companies</div>
+                <div class="card-body">
+                    <p>You are in Companies Page</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

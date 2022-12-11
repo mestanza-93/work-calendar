@@ -15,10 +15,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/test', function () {
     return view('test');
 });
+Route::get('/employees', function () {
+    return view('test');
+})->name('employees');
+Route::get('/calendar', function () {
+    return view('test');
+})->name('calendar');
 
-Route::get('/companies', 'CompanyController@all');
+Route::get('/companies', 'CompanyController@all')->name('companies');

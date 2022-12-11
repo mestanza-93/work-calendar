@@ -1,10 +1,9 @@
 <?php
 
-namespace Database\Helpers;
+namespace App\Utils;
 
 use Exception;
 use App\Providers\DatabaseServiceProvider;
-use Google\Cloud\Firestore\QuerySnapshot;
 use Google\Cloud\Firestore\FirestoreClient;
 
 
@@ -30,9 +29,10 @@ class QueryBuilder
      * 
      * @return Firestore $db
      */
-    public function __construct ()
+    public function __construct (string $table)
     {
        $this->connection = DatabaseServiceProvider::initConnection();
+       $this->setTable($table);
     }
 
     /**
@@ -66,15 +66,30 @@ class QueryBuilder
 
 
     /**
-     * Get all data from a table
+     * Get all rows from a table
      * 
      * @return array 
      */
-    public function getAll (): QuerySnapshot
+    public function getAll (): array
     {
         $data = [];
         $collection = $this->getCollection();
-        $data = $collection->documents();
+        $data = $collection->documents()->rows();
+
+        return $data;
+    }
+
+    /**
+     * Get documents filtered by field
+     * 
+     * @return array 
+     */
+    public function getByField (string $field, string $operator, mixed $value): array
+    {
+        $data = [];
+        $collection = $this->getCollection();
+        $query = $collection->where($field,  $operator, $value);
+        $data = $query->documents()->rows();
 
         return $data;
     }
