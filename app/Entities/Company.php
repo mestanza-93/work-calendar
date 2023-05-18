@@ -10,21 +10,21 @@ class Company
      * 
      * @var string
      */
-    private string $name;
+    public string $name;
 
     /**
      * Company nick to show in website
      * 
      * @var string
      */
-    private string $nick;
+    public string $nick;
 
     /**
      * Company email
      * 
      * @var string
      */
-    private string $email;
+    public string $email;
 
 
     /**
@@ -32,14 +32,14 @@ class Company
      * 
      * @var string
      */
-    private string $alias;
+    public string $alias;
 
     /**
      * Company name
      * 
      * @var bool
      */
-    private bool $active;
+    public bool $active;
 
 
     /**

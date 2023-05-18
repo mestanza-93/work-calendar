@@ -27,7 +27,7 @@ class DatabaseServiceProvider extends ServiceProvider
      */
     public function initialize()
     {
-        new StorageClient([
+        $storage = new StorageClient([
             'keyFilePath' => config('database.connections.firestore.credentials')
         ]);
     }
@@ -42,7 +42,9 @@ class DatabaseServiceProvider extends ServiceProvider
         $db = null;
 
         try {
-            $db = new FirestoreClient();
+            $db = new FirestoreClient([
+                'projectId' => config('database.connections.firestore.project')
+            ]);
         } catch (Exception $e) {
             throw $e;
         }

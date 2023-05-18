@@ -13,10 +13,6 @@ class CompanyController extends Controller
 
         return view('companies', [
             'navbar' => [
-                // 'home' => [
-                //     'name' => 'home',
-                //     'route' => ''
-                // ],
                 'companies' => [
                     'name' => 'Empresas',
                     'route' => 'companies'
@@ -28,6 +24,10 @@ class CompanyController extends Controller
                 'calendar' => [
                     'name' => 'Calendario',
                     'route' => 'calendar'
+                ],
+                'vacances' => [
+                    'name' => 'Vacaciones',
+                    'route' => 'vacances'
                 ]
             ],
             'companies' => $companies,

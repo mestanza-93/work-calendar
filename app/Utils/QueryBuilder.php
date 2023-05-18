@@ -5,7 +5,7 @@ namespace App\Utils;
 use Exception;
 use App\Providers\DatabaseServiceProvider;
 use Google\Cloud\Firestore\FirestoreClient;
-
+use Google\Cloud\Firestore\QuerySnapshot;
 
 class QueryBuilder 
 {
@@ -74,7 +74,11 @@ class QueryBuilder
     {
         $data = [];
         $collection = $this->getCollection();
-        $data = $collection->documents()->rows();
+        $documents = $collection->documents();
+
+        foreach ($documents as $doc) {
+            $data[] = $doc->data();
+        }
 
         return $data;
     }
@@ -89,7 +93,11 @@ class QueryBuilder
         $data = [];
         $collection = $this->getCollection();
         $query = $collection->where($field,  $operator, $value);
-        $data = $query->documents()->rows();
+        $documents = $query->documents();
+
+        foreach ($documents as $doc) {
+            $data[] = $doc->data();
+        }
 
         return $data;
     }

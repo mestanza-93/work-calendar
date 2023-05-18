@@ -40,7 +40,7 @@ class CompanyModel
 
         if (!empty($data)) {
             foreach ($data as $item) {
-                $companies[] = new Company($item->data());
+                $companies[] = new Company($item);
             }
         }
 
@@ -53,15 +53,17 @@ class CompanyModel
      * 
      * @param string $id
      * 
-     * @return Company company
+     * @return Company|null company
      */
-    public function getByAlias (string $alias): Company
+    public function getByAlias (string $alias): Company|null
     {
-        $item = $this->queryBuilder->getByField('alias', $alias);
+        $company = null;
+        $item = $this->queryBuilder->getByField('alias', '=', $alias);
 
-        if (!empty($item)) {
-            return new Company($item->data());
+        if (!empty($item[0])) {
+            $company = new Company($item[0]);
         }
+        return $company;
     }
     
 }
