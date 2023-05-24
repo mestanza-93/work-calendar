@@ -13,10 +13,6 @@ class CompanyController extends Controller
 
         return view('companies', [
             'navbar' => [
-                'companies' => [
-                    'name' => 'Empresas',
-                    'route' => 'companies'
-                ],
                 'employees' => [
                     'name' => 'Empleados',
                     'route' => 'employees'

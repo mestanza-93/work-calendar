@@ -102,4 +102,24 @@ class QueryBuilder
         return $data;
     }
 
+    /**
+     * Get documents by document ID
+     * 
+     * @return array 
+     */
+    public function getById (array $ids): array
+    {
+        $data = [];
+        $collection = $this->getCollection();
+        $documents = $collection->documents($ids);
+
+        Dump($documents);
+
+        foreach ($documents as $doc) {
+            $data[] = $doc->data();
+        }
+
+        return $data;
+    }
+
 }

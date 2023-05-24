@@ -2,40 +2,45 @@
 
 namespace App\Entities;
 
-class Company
+class User 
 {
+    /**
+     * User email
+     * 
+     * @var string
+     */
+    public string $email;
 
     /**
-     * Company name
+     * User name
      * 
      * @var string
      */
     public string $name;
 
     /**
-     * Company nick to show in website
+     * User nick to show in website
      * 
      * @var string
      */
     public string $nick;
 
     /**
-     * Company email
+     * User password encrypted
      * 
      * @var string
      */
-    public string $email;
-
+    public string $password;
 
     /**
-     * Company alias
+     * User role
      * 
      * @var string
      */
-    public string $alias;
+    public string $role;
 
     /**
-     * Company name
+     * User active or not
      * 
      * @var bool
      */
@@ -43,14 +48,15 @@ class Company
 
 
     /**
-     * Construct of Company Entity
+     * Construct of User Entity
      */
     public function __construct(array $data)
     {
+        $this->email = $data['email'] ?? null;
         $this->name = $data['name'] ?? null;
         $this->nick = $data['nick'] ?? null;
-        $this->email = $data['email'] ?? null;
-        $this->alias = $data['alias'] ?? null;
+        $this->password = $data['password'] ?? null;
+        $this->role = $data['role'] ?? null;
         $this->active = $data['active'] ?? false;
     }
 

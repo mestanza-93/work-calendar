@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -15,33 +16,29 @@ use App\Http\Controllers\CompanyController;
 |
 */
 
-Route::get('/', function () {
+Route::middleware(['auth'])->get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/test', function () {
-    return view('test');
-});
 Route::get('/employees', function () {
     return view('test');
 })->name('employees');
 Route::get('/calendar', function () {
     return view('test');
 })->name('calendar');
+Route::get('/vacances', function () {
+    return view('test');
+})->name('vacances');
 
+Route::get('/login', [UserController::class, 'login'])->name('user.login');
+Route::get('/companies', [CompanyController::class, 'all'])->name('companies.all');
 
-// Route::get('/companies', 'CompanyController@all')->name('companies');
-
-// Route::controller(CompanyController::class)->group(function () {
-//     Route::get('/companies/all', 'all');
-// });
-
-Route::prefix('/companies')->group(function () {
-    Route::get('/', [CompanyController::class, 'all']);
-
+Route::prefix('/company')->group(function () {
     Route::prefix('/{alias}')->group(function () {
         Route::get('/', [CompanyController::class, 'getByAlias']);
-        Route::get('/companies', [CompanyController::class, 'getByAlias']);
         Route::get('/employees', [CompanyController::class, 'getByAlias']);
+        Route::get('/vacances', [CompanyController::class, 'getByAlias']);
+        Route::get('/calendar', [CompanyController::class, 'getByAlias']);
     });
 });
+
