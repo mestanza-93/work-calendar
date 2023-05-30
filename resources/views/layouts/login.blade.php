@@ -1,6 +1,6 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
-    <title>{{ config('app.name') }} | {{ __('messages.seo.title.global') }}</title>
+    <title>{{ config('app.name') }}</title>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -14,19 +14,8 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Empresas
+                    WorkCalendar
                 </a>
-  
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        @foreach ($navbar as $navbarItem)
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route($navbarItem['route']) }}">{{ $navbarItem['name'] }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
             </div>
         </nav>
   

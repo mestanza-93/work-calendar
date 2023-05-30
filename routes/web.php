@@ -16,9 +16,19 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::middleware(['auth'])->get('/', function () {
-    return view('welcome');
-})->name('home');
+
+/**
+ * Login routes
+ */
+Route::get('/', [UserController::class, 'home'])->name('user.home');
+Route::get('/login', [UserController::class, 'login'])->name('user.login.view');
+Route::post('/login', [UserController::class, 'checkLogin'])->name('user.login.action');
+
+/**
+ * Register routes
+ */
+Route::get('/register', [UserController::class, 'register'])->name('user.register.view');
+Route::post('/register', [UserController::class, 'doRegister'])->name('user.register.action');
 
 Route::get('/employees', function () {
     return view('test');
@@ -30,7 +40,8 @@ Route::get('/vacances', function () {
     return view('test');
 })->name('vacances');
 
-Route::get('/login', [UserController::class, 'login'])->name('user.login');
+
+
 Route::get('/companies', [CompanyController::class, 'all'])->name('companies.all');
 
 Route::prefix('/company')->group(function () {

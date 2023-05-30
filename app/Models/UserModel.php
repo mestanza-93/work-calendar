@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use QueryBuilder;
-use App\Entities\Company;
+use App\Entities\User;
 
-class CompanyModel
+class UserModel
 {
     /**
      * The table associated with the model.
@@ -59,6 +59,25 @@ class CompanyModel
     {
         $user = null;
         $item = $this->queryBuilder->getById([$id]);
+
+        if (!empty($item[0])) {
+            $user = new User($item[0]);
+        }
+        return $user;
+    }
+
+
+    /**
+     * Get User by ID
+     * 
+     * @param string $id
+     * 
+     * @return User|null user
+     */
+    public function login (array $params): User|null
+    {
+        $user = null;
+        $item = $this->queryBuilder->getByField('email', '=', $params['email']);
 
         if (!empty($item[0])) {
             $user = new User($item[0]);
