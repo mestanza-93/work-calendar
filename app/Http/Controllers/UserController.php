@@ -45,20 +45,6 @@ class UserController extends Controller
             return view('companies', [
                 'navbar' => [
                     'title' => __('messages.companies.text'),
-                    'sections' => [
-                        'employees' => [
-                            'name' => 'Empleados',
-                            'route' => 'employees'
-                        ],
-                        'calendar' => [
-                            'name' => 'Calendario',
-                            'route' => 'calendar'
-                        ],
-                        'vacances' => [
-                            'name' => 'Vacaciones',
-                            'route' => 'vacances'
-                        ]
-                    ],
                 ],
                 'companies' => $companies,
             ]);
