@@ -10,14 +10,20 @@ return [
 
     'email' => [
         'text' => 'Email',
+        'not-exists' => "The email provided doesn't exist"
     ],
     
     'password' => [
         'text' => 'Password',
+        'wrong' => 'Wrong password'
     ],
     
     'login' => [
         'text' => 'Login'
     ],
+
+    'companies' => [
+        'text' => 'Companies'
+    ]
 
 ];

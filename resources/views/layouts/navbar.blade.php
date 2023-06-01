@@ -1,38 +1,17 @@
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <title>{{ config('app.name') }} | {{ __('messages.seo.title.global') }}</title>
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <!-- Styles -->
-    <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
-</head>
-
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Empresas
-                </a>
-  
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        @foreach ($navbar as $navbarItem)
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route($navbarItem['route']) }}">{{ $navbarItem['name'] }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </nav>
-  
-        <main class="py-4">
-            @yield('content')
-        </main>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url('/') }}">{{ $navbar['title'] }}</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuItems" aria-controls="menuItems" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menuItems">
+            <ul class="navbar-nav">
+                @foreach ($navbar['sections'] as $navbarItem)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route($navbarItem['route']) }}">{{ $navbarItem['name'] }}</a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
     </div>
-</body>
-</html>
+</nav>

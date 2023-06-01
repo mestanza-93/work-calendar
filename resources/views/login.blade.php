@@ -1,9 +1,7 @@
+@extends('layouts.header')
 @extends('layouts.login')
 
 @section('content')
-
-{{ Dump($errors); }}
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
@@ -17,26 +15,36 @@
                         <div class="form-group row">
                             <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('messages.email.text') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                            <div class="col-md-8">
+                                <input id="email" type="email" class="form-control{{ $errors->has('email') || !empty($messages['email']) ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                 @endif
+                                @if (!empty($messages['email']))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $messages['email'] }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row mt-2">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('messages.password.text') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                            <div class="col-md-8">
+                                <input id="password" type="password" class="form-control{{ $errors->has('password') || !empty($messages['password']) ? ' is-invalid' : '' }}" name="password">
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                                @if (!empty($messages['password']))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $messages['password'] }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -68,3 +76,5 @@
     </div>
 </div>
 @endsection
+
+@extends('layouts.footer')

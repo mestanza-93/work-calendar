@@ -20,9 +20,10 @@ use App\Http\Controllers\UserController;
 /**
  * Login routes
  */
-Route::get('/', [UserController::class, 'home'])->name('user.home');
-Route::get('/login', [UserController::class, 'login'])->name('user.login.view');
+Route::get('/', [UserController::class, 'login'])->name('user.home');
+Route::get('/login', [UserController::class, 'login'])->name('user.login.view')->middleware('login');
 Route::post('/login', [UserController::class, 'checkLogin'])->name('user.login.action');
+Route::post('/logout', [UserController::class, 'logout'])->name('user.logout.action');
 
 /**
  * Register routes
@@ -42,7 +43,7 @@ Route::get('/vacances', function () {
 
 
 
-Route::get('/companies', [CompanyController::class, 'all'])->name('companies.all');
+Route::get('/companies', [CompanyController::class, 'all'])->name('companies.all')->middleware('login');
 
 Route::prefix('/company')->group(function () {
     Route::prefix('/{alias}')->group(function () {

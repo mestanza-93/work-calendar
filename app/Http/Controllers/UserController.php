@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\CompanyRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -15,20 +16,19 @@ class UserController extends Controller
     protected $userRepository;
 
     /**
+     * @var CompanyRepository
+     */
+    protected $companyRepository;
+
+    /**
      * UserController constructor.
      * @param UserRepository $userRepository
+     * @param CompanyRepository $companyRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, CompanyRepository $companyRepository)
     {
         $this->userRepository = $userRepository;
-    }
-
-    public function home()
-    {
-        return view('login', [
-            
-        ]);
-
+        $this->companyRepository = $companyRepository;
     }
 
     public function register()
@@ -39,35 +39,98 @@ class UserController extends Controller
 
     public function login()
     {
-        return view('login');
+        if (!empty(session('authenticated'))) {
+            $companies = $this->companyRepository->getAll();
+    
+            return view('companies', [
+                'navbar' => [
+                    'title' => __('messages.companies.text'),
+                    'sections' => [
+                        'employees' => [
+                            'name' => 'Empleados',
+                            'route' => 'employees'
+                        ],
+                        'calendar' => [
+                            'name' => 'Calendario',
+                            'route' => 'calendar'
+                        ],
+                        'vacances' => [
+                            'name' => 'Vacaciones',
+                            'route' => 'vacances'
+                        ]
+                    ],
+                ],
+                'companies' => $companies,
+            ]);
+        } else {
+            return view('login', [
+                'messages' => []
+            ]);
+        }
     }
 
 
     public function checkLogin (Request $request)
     {
-        $errors = [];
+        $messages = [];
+
+        /** Validate fields with custom names */
+        Validator::make(
+            $request->all(), 
+            [ 
+                'email' => 'required',
+                'password' => 'required'
+            ],
+            [],
+            [
+                'email' => __('messages.email.text'),
+                'password' => __('messages.password.text')
+            ]
+        )->validate();
 
         /** Check email from database */
         $params = $request->input() ?? null;
         $login = $this->userRepository->login($params);
-        
-        /** Check password encrypted */
-        $passwordEncrypted = Hash::make($params['password']);
-        $checkPassword = Hash::check($params['password'], $passwordEncrypted);
 
         if (empty($login)) {
-            $errors = [
+            $messages = [
                 'email' => __('messages.email.not-exists')
             ];
-        } else if ($checkPassword === true) {
-            $errors = [
-                'password' => __('messages.password.wrong')
-            ];
+        } else {
+
+            /** Check password encrypted matchs */
+            $checkPassword = Hash::check($params['password'], $login->password);
+
+            if ($checkPassword === false && $login->active === true) {
+                $messages = [
+                    'password' => __('messages.password.wrong')
+                ];
+
+            /** Create session variables */
+            } else {
+                session()->put('authenticated', time());
+                session()->put('user', $login);
+
+                if ($login->role == 'admin') {
+                    return redirect('/companies');
+                } else {
+                    return redirect('/');
+                }
+            }
         }
 
         return view('login', [
-            'errors' => $errors
+            'messages' => $messages
         ]);
+    }
+
+
+    /**
+     * Remove user session
+     */
+    public function logout (Request $request)
+    {
+        session()->flush();
     }
 
 }
